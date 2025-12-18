@@ -1,4 +1,3 @@
-
 # ~/.bashrc
 
 # If not running interactively, don't do anything
@@ -33,3 +32,4 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # Having nvim as default editor
 export EDITOR=nvim
+# test

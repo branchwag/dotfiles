@@ -27,9 +27,14 @@ window#waybar {
     color: #ffffff;
 }
 
-#clock, #cpu, #memory, #battery, #network, #pulseaudio {
+#cpu, #memory, #network, #pulseaudio #battery {
     padding: 0 10px;
     color: #00bfff;
+}
+
+#clock {
+    padding: 0 10px;
+    color: #ffffff;
 }
 
 #window {

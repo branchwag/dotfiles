@@ -1,0 +1,28 @@
+[status]
+# Add overall padding/background
+overall = { bg = "#000000" }
+
+# Add separators with spaces for padding
+sep_left = { open = " ", close = " " }
+sep_right = { open = " ", close = " " }
+
+# File type and permissions
+perm_type = { fg = "#00ffff" }
+perm_read = { fg = "#00ff00" }
+perm_write = { fg = "#00ffff" }
+perm_exec = { fg = "#ff00ff" }
+perm_sep = { fg = "#555555" }
+
+# Progress indicators
+progress_label = { fg = "#000000", bg = "#ffffff", bold = true }
+progress_normal = { fg = "#000000", bg = "#ffffff", bold = true }
+progress_error = { fg = "#ffffff", bg = "#cc0000", bold = true }
+
+[mode]
+# Mode indicators - use exact folder blue #1572cb
+normal_main = { fg = "#ffffff", bg = "#1572cb", bold = true }
+normal_alt = { fg = "#1572cb", bg = "#000000" }
+select_main = { fg = "#000000", bg = "#00ff99", bold = true }
+select_alt = { fg = "#00ff99", bg = "#000000" }
+unset_main = { fg = "#ffffff", bg = "#1572cb", bold = true }
+unset_alt = { fg = "#1572cb", bg = "#000000" }

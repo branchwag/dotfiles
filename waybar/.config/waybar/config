@@ -6,7 +6,7 @@
     
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": [],
-    "modules-right": ["pulseaudio", "network", "memory", "cpu", "battery", "clock"],
+    "modules-right": ["pulseaudio", "tray", "network", "memory", "cpu", "battery", "clock"],
     
     "hyprland/workspaces": {
         "format": "{name}",
@@ -38,11 +38,15 @@
         "format-wifi": "{essid} {ipaddr}",
         "format-ethernet": "{ipaddr}",
         "format-disconnected": "Disconnected",
-        "tooltip-format": "{ifname} via {gwaddr}"
+        "tooltip-format": "{ifname} via {gwaddr}",
     },
     
     "pulseaudio": {
         "format": "VOL {volume}%",
         "format-muted": "MUTE"
+    },
+
+    "tray" : {
+    	"spacing": 10
     }
 }

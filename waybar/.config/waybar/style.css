@@ -10,7 +10,7 @@ window#waybar {
 }
 
 #workspaces button {
-    padding: 0 10px;
+    padding: 0 7px;
     background-color: transparent;
     color: #00bfff;
     border: none;
@@ -28,30 +28,17 @@ window#waybar {
 }
 
 #cpu, #memory, #network, #pulseaudio, #battery {
-    padding: 0 10px;
+    padding: 0 7px;
     color: #00bfff;
 }
 
 #clock {
-    padding: 0 10px;
+    padding: 0 7px;
     color: #ffffff;
 }
 
 #window {
-    padding: 0 10px;
+    padding: 0 7px;
     color: #00bfff;
 }
 
-#tray {
-    padding: 0px;
-    margin-top: -5px;
-}
-
-#tray > .passive {
-    -gtk-icon-effect: dim;
-}
-
-#tray > .needs-attention {
-    -gtk-icon-effect: highlight;
-    background-color: #1a1a1a;
-}

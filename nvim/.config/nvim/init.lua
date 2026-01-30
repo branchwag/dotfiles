@@ -709,6 +709,23 @@ require("lazy").setup({
 						},
 					},
 				},
+				rust_analyzer = {
+					settings = {
+						["rust-analyzer"] = {
+							cargo = {
+								-- Don't force a specific target, let cargo decide
+								allFeatures = true,
+								loadOutDirsFromCheck = true,
+							},
+							checkOnSave = {
+								command = "clippy",
+							},
+							procMacro = {
+								enable = true,
+							},
+						},
+					},
+				},
 			}
 
 			-- Ensure the servers and tools above are installed

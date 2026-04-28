@@ -1,0 +1,15 @@
+#!/bin/bash
+# Notify when someone SSHs into this machine.
+# Watches systemd journal for sshd login events.
+
+DISPLAY=:0
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+export DISPLAY DBUS_SESSION_BUS_ADDRESS
+
+journalctl -fu sshd.service -n 0 | while read -r line; do
+    if echo "$line" | grep -q "Accepted"; then
+        user=$(echo "$line" | grep -oP 'for \K\S+')
+        ip=$(echo "$line" | grep -oP 'from \K[\d.]+')
+        notify-send -u critical "SSH Login" "User: ${user} from ${ip}"
+    fi
+done

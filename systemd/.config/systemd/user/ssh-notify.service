@@ -1,0 +1,10 @@
+[Unit]
+Description=SSH login desktop notification
+After=graphical-session.target
+
+[Service]
+ExecStart=%h/.local/bin/ssh-notify
+Restart=always
+
+[Install]
+WantedBy=default.target

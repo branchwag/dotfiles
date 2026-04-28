@@ -57,3 +57,6 @@ if [ "$XDG_CURRENT_DESKTOP" = "Hyprland" ]; then
         ssh-add ~/.ssh/id_ed25519 2>/dev/null
     fi
 fi
+
+# opencode
+export PATH=/home/whiterabbit/.opencode/bin:$PATH

@@ -1,0 +1,9 @@
+#!/bin/bash
+# Check if Zen browser is running
+if hyprctl clients | grep -q "class: zen"; then
+    # Focus the existing window
+    hyprctl dispatch focuswindow "class:zen"
+else
+    # Launch new instance
+    zen-browser &
+fi

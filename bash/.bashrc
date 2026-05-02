@@ -60,3 +60,4 @@ fi
 
 # opencode
 export PATH=/home/whiterabbit/.opencode/bin:$PATH
+. $HOME/export-esp.sh

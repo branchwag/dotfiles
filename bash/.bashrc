@@ -60,4 +60,6 @@ fi
 
 # opencode
 export PATH=/home/whiterabbit/.opencode/bin:$PATH
+
+#ESP32 support
 . $HOME/export-esp.sh

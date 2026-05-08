@@ -709,23 +709,8 @@ require("lazy").setup({
 						},
 					},
 				},
-				rust_analyzer = {
-					settings = {
-						["rust-analyzer"] = {
-							cargo = {
-								-- Don't force a specific target, let cargo decide
-								allFeatures = true,
-								loadOutDirsFromCheck = true,
-							},
-							checkOnSave = {
-								command = "clippy",
-							},
-							procMacro = {
-								enable = true,
-							},
-						},
-					},
-				},
+				-- rust_analyzer is configured below outside of Mason so it uses the
+				-- rustup-managed binary (matched to the active toolchain's cargo).
 			}
 
 			-- Ensure the servers and tools above are installed
@@ -762,6 +747,27 @@ require("lazy").setup({
 					end,
 				},
 			})
+
+			vim.lsp.config("rust_analyzer", {
+				cmd = { vim.fn.expand("$HOME/.cargo/bin/rust-analyzer") },
+				capabilities = capabilities,
+				settings = {
+					["rust-analyzer"] = {
+						cargo = {
+							allFeatures = true,
+							buildScripts = { enable = true },
+						},
+						checkOnSave = true,
+						check = {
+							command = "clippy",
+						},
+						procMacro = {
+							enable = true,
+						},
+					},
+				},
+			})
+			vim.lsp.enable("rust_analyzer")
 		end,
 	},
 

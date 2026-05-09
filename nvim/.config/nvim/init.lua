@@ -1031,11 +1031,16 @@ require("lazy").setup({
 	},
 	{ -- Highlight, edit, and navigate code
 		"nvim-treesitter/nvim-treesitter",
-		build = ":TSUpdate",
-		main = "nvim-treesitter.configs", -- Sets main module to use for opts
-		-- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-		opts = {
-			ensure_installed = {
+		branch = "main",
+		build = function()
+			package.loaded["nvim-treesitter"] = nil
+			require("nvim-treesitter").update()
+		end,
+		lazy = false,
+		config = function()
+			local nt = require("nvim-treesitter")
+
+			nt.install({
 				"bash",
 				"c",
 				"diff",
@@ -1048,18 +1053,41 @@ require("lazy").setup({
 				"rust",
 				"vim",
 				"vimdoc",
-			},
-			-- Autoinstall languages that are not installed
-			auto_install = true,
-			highlight = { enable = true },
-			indent = { enable = true },
-		},
-		-- There are additional nvim-treesitter modules that you can use to interact
-		-- with nvim-treesitter. You should go explore a few and see what interests you:
-		--
-		--    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-		--    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-		--    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+			})
+
+			local function attach(bufnr, lang)
+				if not vim.api.nvim_buf_is_valid(bufnr) then
+					return
+				end
+				if pcall(vim.treesitter.start, bufnr, lang) then
+					vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+				end
+			end
+
+			vim.api.nvim_create_autocmd("FileType", {
+				callback = function(ev)
+					local bufnr = ev.buf
+					local lang = vim.treesitter.language.get_lang(vim.bo[bufnr].filetype)
+					if not lang then
+						return
+					end
+
+					local installed = nt.get_installed("parsers") or {}
+					if vim.tbl_contains(installed, lang) then
+						attach(bufnr, lang)
+						return
+					end
+
+					local available = nt.get_available and nt.get_available() or {}
+					if #available > 0 and not vim.tbl_contains(available, lang) then
+						return
+					end
+					nt.install({ lang }):await(vim.schedule_wrap(function()
+						attach(bufnr, lang)
+					end))
+				end,
+			})
+		end,
 	},
 
 	-- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the

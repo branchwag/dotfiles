@@ -90,7 +90,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -739,11 +739,9 @@ require("lazy").setup({
 				handlers = {
 					function(server_name)
 						local server = servers[server_name] or {}
-						-- This handles overriding only values explicitly passed
-						-- by the server configuration above. Useful when disabling
-						-- certain features of an LSP (for example, turning off formatting for ts_ls)
 						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-						require("lspconfig")[server_name].setup(server)
+						vim.lsp.config(server_name, server)
+						vim.lsp.enable(server_name)
 					end,
 				},
 			})
@@ -803,16 +801,12 @@ require("lazy").setup({
 			end,
 			formatters_by_ft = {
 				lua = { "stylua" },
-				-- Conform can also run multiple formatters sequentially
-				-- python = { "isort", "black" },
-				--
-				-- You can use 'stop_after_first' to run the first available formatter from the list
-				javascript = { "prettierd", "prettier", stop_after_first = true },
-				javascriptreact = { "prettierd", "prettier", stop_after_first = true },
-				typescript = { "prettierd", "prettier", stop_after_first = true },
-				typescriptreact = { "prettierd", "prettier", stop_after_first = true },
-				json = { "prettierd", "prettier", stop_after_first = true },
-				html = { "prettierd", "prettier", stop_after_first = true },
+				javascript = { "prettier" },
+				javascriptreact = { "prettier" },
+				typescript = { "prettier" },
+				typescriptreact = { "prettier" },
+				json = { "prettier" },
+				html = { "prettier" },
 			},
 		},
 	},
@@ -898,12 +892,6 @@ require("lazy").setup({
 				default = { "lsp", "path", "snippets", "lazydev" },
 				providers = {
 					lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
-				},
-				per_filetype = {
-					javascript = { "path", "snippets" }, -- No LSP completion for JS
-					javascriptreact = { "path", "snippets" }, -- No LSP for JSX
-					typescript = { "path", "snippets" }, -- No LSP for TS (optional)
-					typescriptreact = { "path", "snippets" }, -- No LSP for TSX (optional)
 				},
 			},
 
@@ -1026,21 +1014,20 @@ require("lazy").setup({
 			},
 		},
 	},
-	-- High-performance color highlighter
+	-- High-performance color highlighter (maintained fork of norcalli/nvim-colorizer.lua)
 	{
-		"norcalli/nvim-colorizer.lua",
+		"catgoose/nvim-colorizer.lua",
 		event = "BufReadPre",
-		config = function()
-			require("colorizer").setup({
-				"*", -- Highlight all files
-			}, {
+		opts = {
+			filetypes = { "*" },
+			user_default_options = {
 				RGB = true, -- #RGB hex codes
 				RRGGBB = true, -- #RRGGBB hex codes
 				names = false, -- "Name" codes like Blue
 				css = false, -- Enable all CSS features
 				mode = "background", -- Set the display mode (background or foreground)
-			})
-		end,
+			},
+		},
 	},
 	{ -- Highlight, edit, and navigate code
 		"nvim-treesitter/nvim-treesitter",
@@ -1058,20 +1045,14 @@ require("lazy").setup({
 				"markdown",
 				"markdown_inline",
 				"query",
+				"rust",
 				"vim",
 				"vimdoc",
 			},
 			-- Autoinstall languages that are not installed
 			auto_install = true,
-			highlight = {
-				enable = true,
-				-- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-				--  If you are experiencing weird indenting issues, add the language to
-				--  the list of additional_vim_regex_highlighting and disabled languages for indent.
-				additional_vim_regex_highlighting = { "ruby" },
-			},
-			indent = { enable = true, disable = { "ruby" } },
-			fold = { enable = true, disable = {} },
+			highlight = { enable = true },
+			indent = { enable = true },
 		},
 		-- There are additional nvim-treesitter modules that you can use to interact
 		-- with nvim-treesitter. You should go explore a few and see what interests you:

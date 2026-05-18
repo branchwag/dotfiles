@@ -1029,6 +1029,29 @@ require("lazy").setup({
 			},
 		},
 	},
+	{ -- Animated "smear" trail that follows the cursor
+		"sphamba/smear-cursor.nvim",
+		event = "VeryLazy",
+		opts = {
+			-- Smear cursor when switching buffers or windows.
+			smear_between_buffers = true,
+			-- Smear cursor when moving within line or to neighbor lines.
+			smear_between_neighbor_lines = true,
+			-- Use floating windows to display smears over wrapped lines or outside buffers.
+			-- May affect performance negatively.
+			use_floating_windows = true,
+			-- Set to `true` if your font supports legacy computing symbols (block unicode symbols).
+			-- Smears will blend better on all backgrounds.
+			legacy_computing_symbols_support = false,
+
+			-- How fast the smear's head/tail catch up (0 = slow, 1 = instant).
+			-- stiffness = 0.6,
+			-- trailing_stiffness = 0.3,
+			-- Color of the smear; defaults to the cursor's color.
+			-- cursor_color = "#d3cdc3",
+		},
+	},
+
 	{ -- Highlight, edit, and navigate code
 		"nvim-treesitter/nvim-treesitter",
 		branch = "main",

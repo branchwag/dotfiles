@@ -871,6 +871,11 @@ require("lazy").setup({
 				-- See :h blink-cmp-config-keymap for defining your own keymap
 				preset = "super-tab",
 				["<CR>"] = { "accept", "fallback" },
+				-- Override super-tab's <Tab>: accept a completion if the menu is
+				-- open, otherwise insert a plain indent. Drops `snippet_forward`
+				-- so Tab never jumps to a snippet placeholder on another line.
+				["<Tab>"] = { "select_and_accept", "fallback" },
+				["<S-Tab>"] = { "fallback" },
 
 				-- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
 				--    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps

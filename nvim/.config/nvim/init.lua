@@ -92,6 +92,10 @@ vim.g.maplocalleader = " "
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+-- Limit LSP logging so ~/.local/state/nvim/lsp.log doesn't grow unbounded.
+-- Levels: "TRACE" | "DEBUG" | "INFO" | "WARN" | "ERROR" | "OFF"
+vim.lsp.set_log_level("ERROR")
+
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!

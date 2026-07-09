@@ -3,7 +3,7 @@
 # Watches systemd journal for sshd login events.
 
 DISPLAY=:0
-DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus
 export DISPLAY DBUS_SESSION_BUS_ADDRESS
 
 journalctl -fu sshd.service -n 0 | while read -r line; do

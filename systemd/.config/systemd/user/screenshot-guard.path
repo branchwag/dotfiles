@@ -1,0 +1,10 @@
+[Unit]
+Description=Watch for screenshots arriving while the screenshot watcher is down
+
+[Path]
+# Fires on each new file dropped into the transfer folder (edge-triggered).
+PathModified=%h/CodingStuff/screenshot_transfer
+Unit=screenshot-guard.service
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,16 @@
+#!/bin/bash
+# Triggered by screenshot-guard.path whenever a file lands in the screenshot
+# transfer folder. If the watcher that forwards screenshots to Claude is NOT
+# running, send a desktop notification so the screenshot isn't silently lost.
+#
+# This lives outside the watcher on purpose: the watcher can't warn you when
+# the watcher itself is the thing that's down.
+
+DISPLAY=:0
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus
+export DISPLAY DBUS_SESSION_BUS_ADDRESS
+
+if ! systemctl --user is-active --quiet screenshot-claude.service; then
+    notify-send -u critical "Screenshot watcher is DOWN" \
+        "A screenshot arrived but screenshot-claude.service isn't running, so it won't be sent to Claude. Start it: systemctl --user start screenshot-claude.service"
+fi

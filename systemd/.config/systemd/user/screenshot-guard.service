@@ -1,0 +1,6 @@
+[Unit]
+Description=Warn if a screenshot arrives while screenshot-claude.service is down
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/screenshot-guard

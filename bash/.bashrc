@@ -61,5 +61,8 @@ fi
 # opencode
 export PATH=/home/whiterabbit/.opencode/bin:$PATH
 
+# Personal Jesus CLI
+alias pj='DATABASE_URL=$HOME/CodingStuff/aiMagic/personalJesus/data/chat.db $HOME/CodingStuff/aiMagic/personalJesus/target/release/pj'
+
 #ESP32 support
 . $HOME/export-esp.sh

@@ -66,3 +66,4 @@ alias pj='DATABASE_URL=$HOME/CodingStuff/aiMagic/personalJesus/data/chat.db $HOM
 
 #ESP32 support
 . $HOME/export-esp.sh
+export PATH="$HOME/bin:$PATH"

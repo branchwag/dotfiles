@@ -1148,6 +1148,17 @@ require("lazy").setup({
 	-- Or use telescope!
 	-- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
 	-- you can continue same window with `<space>sr` which resumes last telescope search
+
+	-- mashless — motion-efficiency coach (Rust core + thin Lua shim), from local clone
+	{
+		dir = vim.fn.expand '~/CodingStuff/mashless',
+		name = 'mashless',
+		lazy = false, -- load at startup so motions are recorded from the first key
+		build = 'cargo build --release',
+		config = function()
+			require('mashless').setup()
+		end,
+	},
 }, {
 	ui = {
 		-- If you are using a Nerd Font: set icons to an empty table which will use the

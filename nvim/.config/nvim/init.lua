@@ -699,6 +699,12 @@ require("lazy").setup({
 				--
 				tailwindcss = {},
 
+				-- Java: Eclipse JDT Language Server. Mason installs a `jdtls`
+				-- launcher on PATH that starts the server with your JDK and
+				-- manages a per-project workspace. Root is detected from
+				-- pom.xml / mvnw / .mvn / build.gradle / .git.
+				jdtls = {},
+
 				lua_ls = {
 					-- cmd = { ... },
 					-- filetypes = { ... },
@@ -734,6 +740,7 @@ require("lazy").setup({
 			vim.list_extend(ensure_installed, {
 				"stylua", -- Used to format Lua code
 				"prettier", -- JS/TS formattin'
+				"google-java-format", -- Java formatter
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -805,6 +812,7 @@ require("lazy").setup({
 			end,
 			formatters_by_ft = {
 				lua = { "stylua" },
+				java = { "google-java-format" },
 				javascript = { "prettier" },
 				javascriptreact = { "prettier" },
 				typescript = { "prettier" },
@@ -1150,15 +1158,15 @@ require("lazy").setup({
 	-- you can continue same window with `<space>sr` which resumes last telescope search
 
 	-- mashless — motion-efficiency coach (Rust core + thin Lua shim), from local clone
-	{
-		dir = vim.fn.expand '~/CodingStuff/mashless',
-		name = 'mashless',
-		lazy = false, -- load at startup so motions are recorded from the first key
-		build = 'cargo build --release',
-		config = function()
-			require('mashless').setup()
-		end,
-	},
+	--{
+	--dir = vim.fn.expand '~/CodingStuff/mashless',
+	--name = 'mashless',
+	--lazy = false, -- load at startup so motions are recorded from the first key
+	--build = 'cargo build --release',
+	--config = function()
+	--require('mashless').setup()
+	--end,
+	--},
 }, {
 	ui = {
 		-- If you are using a Nerd Font: set icons to an empty table which will use the

@@ -757,6 +757,22 @@ require("lazy").setup({
 				},
 			})
 
+			-- clangd is configured outside of Mason so it uses the system
+			-- /usr/bin/clangd, which matches the system headers and the gcc/clang
+			-- actually used to build course assignments.
+			vim.lsp.config("clangd", {
+				cmd = {
+					"/usr/bin/clangd",
+					"--background-index",
+					"--clang-tidy",
+					"--completion-style=detailed",
+					"--header-insertion=never",
+					"--fallback-style=LLVM",
+				},
+				capabilities = capabilities,
+			})
+			vim.lsp.enable("clangd")
+
 			vim.lsp.config("rust_analyzer", {
 				cmd = { vim.fn.expand("$HOME/.cargo/bin/rust-analyzer") },
 				capabilities = capabilities,
@@ -800,7 +816,7 @@ require("lazy").setup({
 				-- Disable "format_on_save lsp_fallback" for languages that don't
 				-- have a well standardized coding style. You can add additional
 				-- languages here or re-enable it for the disabled ones.
-				local disable_filetypes = { c = true, cpp = true }
+				local disable_filetypes = { cpp = true }
 				if disable_filetypes[vim.bo[bufnr].filetype] then
 					return nil
 				else
@@ -812,7 +828,9 @@ require("lazy").setup({
 			end,
 			formatters_by_ft = {
 				lua = { "stylua" },
+				c = { "clang_format" },
 				java = { "google-java-format" },
+				xml = { "xmllint" }, -- pom.xml and other XML (system libxml2)
 				javascript = { "prettier" },
 				javascriptreact = { "prettier" },
 				typescript = { "prettier" },

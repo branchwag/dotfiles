@@ -67,3 +67,7 @@ alias pj='DATABASE_URL=$HOME/CodingStuff/area51/aiMagic/personalJesus/data/chat.
 #ESP32 support
 . $HOME/export-esp.sh
 export PATH="$HOME/bin:$PATH"
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/whiterabbit/.local/bin:$PATH"
